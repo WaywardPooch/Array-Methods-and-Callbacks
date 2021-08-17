@@ -152,7 +152,7 @@ Hint: use `.reduce` */
 function getCountryWins(data, teamInitials) {
   // Create a world cup winners array
   const winners = [];
-  // Check each finals game, Calculate who won (forEach)
+  // Check each finals game using forEach()
   getFinals(data).forEach((game) => {
     // If the home team won, add their initials to the winners list
     if (game["Home Team Goals"] - game["Away Team Goals"] > 0) {
@@ -171,7 +171,7 @@ function getCountryWins(data, teamInitials) {
     return wins;
   }, 0);
 }
-// Log the number of wins for Italy
+// (Example) Log the number of wins for Italy
 console.log(
   "Stretch 1: Number of World Cup Wins for Italy =>",
   getCountryWins(fifaData, "ITA")
