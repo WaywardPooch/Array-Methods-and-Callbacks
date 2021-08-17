@@ -28,11 +28,8 @@ hint - you should be looking at the stage key inside of the objects
 */
 
 function getFinals(dataArray) {
-  // Return a filtered array of games (as objects)
-  return dataArray.filter((game) => {
-    // Only return games with a Stage of "Final" to this array
-    return game.Stage === "Final";
-  });
+  // Return a filtered array of games (as objects) with a Stage of "Final"
+  return dataArray.filter((game) => game.Stage === "Final");
 }
 // Check to see if the filtered data matches expectations
 console.log("Task 2: All Games in Finals", getFinals(fifaData));
@@ -43,9 +40,12 @@ Use the higher-order function called getYears to do the following:
 2. Receive a callback function getFinals from task 2 
 3. Return an array called years containing all of the years in the getFinals data set*/
 
-function getYears(/* code here */) {
-  /* code here */
+function getYears(dataArray, getFinalsCB) {
+  // Get the Finals Data, then map only the years from it, and return the new array
+  return getFinalsCB(dataArray).map((game) => game.Year);
 }
+// Check to see if getYears() only returns years of games in finals
+console.log("Task 3: Years of Finals", getYears(fifaData, getFinals));
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher-order function getWinners to do the following:  
