@@ -123,15 +123,19 @@ Use the higher order function getAverageGoals to do the following:
 */
 
 function getAverageGoals(getFinalsCB) {
-  // Add up the scores from every finals game (home and away goals, combine)
-  const totalGoals = getFinalsCB.reduce((goals, game) => {
-    return (goals += game["Home Team Goals"] + game["Away Team Goals"]);
-  });
-  return totalGoals;
-  // Return the average number of goals scored in the finals, rounded to 2nd decimal place
-  return parseFloat((totalGoals / getFinalsCB.length).toFixed(2));
+  // "Juice" the finals array for scores, store in "totalGoals"
+  const totalGoals = getFinalsCB.reduce(
+    // Make "goals" the accumulator, and "game" the element to check
+    (goals, game) =>
+      // Add the scores of each game to the total goals accumulator
+      goals + (game["Home Team Goals"] + game["Away Team Goals"]),
+    // Start the counting at 0
+    0
+  );
+  // Return the average number of goals scored in the finals, rounded to 2nd decimal place, as a string
+  return (totalGoals / getFinalsCB.length).toFixed(2);
 }
-
+// Log the average number of goals in the finals
 console.log(
   "Task 6: Average Number of Goals in the Finals =>",
   getAverageGoals(getFinals(fifaData))
