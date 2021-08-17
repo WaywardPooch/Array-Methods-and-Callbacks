@@ -27,9 +27,15 @@ Use getFinals to do the following:
 hint - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(/* code here */) {
-  /* code here */
+function getFinals(dataArray) {
+  // Return a filtered array of games (as objects)
+  return dataArray.filter((game) => {
+    // Only return games with a Stage of "Final" to this array
+    return game.Stage === "Final";
+  });
 }
+// Check to see if the filtered data matches expectations
+console.log("Task 2: All Games in Finals", getFinals(fifaData));
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher-order function called getYears to do the following: 
