@@ -63,6 +63,9 @@ function getWinners(dataArray, getFinalsCB) {
     if (game["Home Team Goals"] - game["Away Team Goals"] > 0) {
       // ...add the home team name to the winners array
       finalsWinnersArray.push(game["Home Team Name"]);
+    } else if (game["Home Team Goals"] - game["Away Team Goals"] === 0) {
+      // ...unless the game was a tie
+      finalsWinnersArray.push("Neither team");
     } else {
       // ...otherwise, add the away team name to the winners array
       finalsWinnersArray.push(game["Away Team Name"]);
@@ -84,9 +87,30 @@ Use the higher-order function getWinnersByYear to do the following:
 hint: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(/* code here */) {
-  /* code here */
+function getWinnersByYear(dataArray, getYearsCB, getWinnersCB) {
+  // Initialize Empty Array to store the results of the finals
+  const yearlyFinalsResultsArray = [];
+  // Check each year's results
+  for (
+    let index = 0;
+    index < getYearsCB(dataArray, getFinals).length;
+    index++
+  ) {
+    // Push annual finals outcomes line-by-line to the results array
+    yearlyFinalsResultsArray.push(
+      `In ${getYearsCB(dataArray, getFinals)[index]}, ${
+        getWinnersCB(dataArray, getFinals)[index]
+      } won the world cup!`
+    );
+  }
+  // Spit out the results array
+  return yearlyFinalsResultsArray;
 }
+// Log the annual results to check if the function works
+console.log(
+  "Task 5: List of Annual Outcomes...",
+  getWinnersByYear(fifaData, getYears, getWinners)
+);
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher order function getAverageGoals to do the following: 
@@ -98,9 +122,20 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-  /* code here */
+function getAverageGoals(getFinalsCB) {
+  // Add up the scores from every finals game (home and away goals, combine)
+  const totalGoals = getFinalsCB.reduce((goals, game) => {
+    return (goals += game["Home Team Goals"] + game["Away Team Goals"]);
+  });
+  return totalGoals;
+  // Return the average number of goals scored in the finals, rounded to 2nd decimal place
+  return parseFloat((totalGoals / getFinalsCB.length).toFixed(2));
 }
+
+console.log(
+  "Task 6: Average Number of Goals in the Finals =>",
+  getAverageGoals(getFinals(fifaData))
+);
 
 /// 🥅 STRETCH 🥅 ///
 
